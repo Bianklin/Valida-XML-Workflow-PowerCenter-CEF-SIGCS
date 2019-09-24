@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE POWERMART SYSTEM "powrmart.dtd">
+<POWERMART CREATION_DATE="07/04/2019 15:41:28" REPOSITORY_VERSION="186.95">
+<REPOSITORY NAME="RPS_CEF_DES_RJ" VERSION="186" CODEPAGE="Latin1" DATABASETYPE="Oracle">
+<FOLDER NAME="PJI_GCS" GROUP="" OWNER="Administrator" SHARED="NOTSHARED" DESCRIPTION="" PERMISSIONS="rwx---r--" UUID="d25e34c9-1450-4444-be82-0f621795d92c">
+    <CONFIG DESCRIPTION ="Default session configuration object" ISDEFAULT ="YES" NAME ="default_session_config" VERSIONNUMBER ="3">
+        <ATTRIBUTE NAME ="Advanced" VALUE =""/>
+        <ATTRIBUTE NAME ="Constraint based load ordering" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Cache LOOKUP() function" VALUE ="YES"/>
+        <ATTRIBUTE NAME ="Default buffer block size" VALUE ="Auto"/>
+        <ATTRIBUTE NAME ="Line Sequential buffer length" VALUE ="1024"/>
+        <ATTRIBUTE NAME ="Maximum Memory Allowed For Auto Memory Attributes" VALUE ="512MB"/>
+        <ATTRIBUTE NAME ="Maximum Percentage of Total Memory Allowed For Auto Memory Attributes" VALUE ="5"/>
+        <ATTRIBUTE NAME ="Additional Concurrent Pipelines for Lookup Cache Creation" VALUE ="Auto"/>
+        <ATTRIBUTE NAME ="Custom Properties" VALUE =""/>
+        <ATTRIBUTE NAME ="Pre-build lookup cache" VALUE ="Auto"/>
+        <ATTRIBUTE NAME ="Optimization Level" VALUE ="Medium"/>
+        <ATTRIBUTE NAME ="DateTime Format String" VALUE ="MM/DD/YYYY HH24:MI:SS.US"/>
+        <ATTRIBUTE NAME ="Pre 85 Timestamp Compatibility" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Log Options" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Save session log by" VALUE ="Session timestamp"/>
+        <ATTRIBUTE NAME ="Session Log File Max Size" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Session Log File Max Time Period" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Maximum Partial Session Log Files" VALUE ="1"/>
+        <ATTRIBUTE NAME ="Writer Commit Statistics Log Frequency" VALUE ="1"/>
+        <ATTRIBUTE NAME ="Writer Commit Statistics Log Interval" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Error handling" VALUE =""/>
+        <ATTRIBUTE NAME ="Stop on errors" VALUE ="1"/>
+        <ATTRIBUTE NAME ="Override tracing" VALUE ="None"/>
+        <ATTRIBUTE NAME ="On Stored Procedure error" VALUE ="Stop"/>
+        <ATTRIBUTE NAME ="On Pre-session command task error" VALUE ="Stop"/>
+        <ATTRIBUTE NAME ="On Pre-Post SQL error" VALUE ="Stop"/>
+        <ATTRIBUTE NAME ="Enable Recovery" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Error Log Type" VALUE ="None"/>
+        <ATTRIBUTE NAME ="Error Log Table Name Prefix" VALUE =""/>
+        <ATTRIBUTE NAME ="Error Log File Name" VALUE ="PMError.log"/>
+        <ATTRIBUTE NAME ="Log Source Row Data" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Data Column Delimiter" VALUE ="|"/>
+        <ATTRIBUTE NAME ="Partitioning Options" VALUE =""/>
+        <ATTRIBUTE NAME ="Dynamic Partitioning" VALUE ="Disabled"/>
+        <ATTRIBUTE NAME ="Number of Partitions" VALUE ="1"/>
+        <ATTRIBUTE NAME ="Multiplication Factor" VALUE ="Auto"/>
+        <ATTRIBUTE NAME ="Session on Grid" VALUE =""/>
+        <ATTRIBUTE NAME ="Is Enabled" VALUE ="NO"/>
+    </CONFIG>
+    <SESSION DESCRIPTION ="Verifica na tabela de Controle de Carga se o processo já foi executado para da Diária registrada no Arquivo de Parâmetros." ISVALID ="YES" MAPPINGNAME ="MPG_CONTROLE_CARGA_INICIO" NAME ="SSN_VERIFICA_CONTROLE_CARGA" REUSABLE ="YES" SORTORDER ="Binary" VERSIONNUMBER ="1">
+        <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="TGT_GCSTD018_CONTROLE_FF" STAGE ="1" TRANSFORMATIONNAME ="TGT_GCSTD018_CONTROLE_FF" TRANSFORMATIONTYPE ="Target Definition">
+            <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+        </SESSTRANSFORMATIONINST>
+        <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="SQF_SRC_SQL_GCSTD018_CONTROLE_CARGA" STAGE ="2" TRANSFORMATIONNAME ="SQF_SRC_SQL_GCSTD018_CONTROLE_CARGA" TRANSFORMATIONTYPE ="Source Qualifier"/>
+        <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA" STAGE ="0" TRANSFORMATIONNAME ="SRC_GCSTD018_CONTROLE_CARGA" TRANSFORMATIONTYPE ="Source Definition"/>
+        <CONFIGREFERENCE REFOBJECTNAME ="default_session_config" TYPE ="Session config"/>
+        <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_GCSTD018_CONTROLE_FF" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+            <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+            <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+            <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_gcstd018_controle_ff.out"/>
+            <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+            <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+            <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+            <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+            <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+            <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Output filename" VALUE ="$$VERIFICA_CNTRLE_CRGA_$$TABELA_D"/>
+            <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Reject filename" VALUE ="$$VERIFICA_CNTRLE_CRGA_$$TABELA_D.bad"/>
+            <ATTRIBUTE NAME ="Command" VALUE =""/>
+            <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+        </SESSIONEXTENSION>
+        <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SRC_SQL_GCSTD018_CONTROLE_CARGA" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+            <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+        </SESSIONEXTENSION>
+        <SESSIONEXTENSION DSQINSTNAME ="SQF_SRC_SQL_GCSTD018_CONTROLE_CARGA" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+        <ATTRIBUTE NAME ="General Options" VALUE =""/>
+        <ATTRIBUTE NAME ="Write Backward Compatible Session Log File" VALUE ="YES"/>
+        <ATTRIBUTE NAME ="Session Log File Name" VALUE ="SSN_VERIFICA_CONTROLE_CARGA.log"/>
+        <ATTRIBUTE NAME ="Session Log File directory" VALUE ="$PMSessionLogDir&#x5c;"/>
+        <ATTRIBUTE NAME ="Parameter Filename" VALUE =""/>
+        <ATTRIBUTE NAME ="Enable Test Load" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="$Source connection value" VALUE ="$DBConnection_SQL"/>
+        <ATTRIBUTE NAME ="$Target connection value" VALUE =""/>
+        <ATTRIBUTE NAME ="Treat source rows as" VALUE ="Insert"/>
+        <ATTRIBUTE NAME ="Commit Type" VALUE ="Target"/>
+        <ATTRIBUTE NAME ="Commit Interval" VALUE ="10000"/>
+        <ATTRIBUTE NAME ="Commit On End Of File" VALUE ="YES"/>
+        <ATTRIBUTE NAME ="Rollback Transactions on Errors" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+        <ATTRIBUTE NAME ="Java Classpath" VALUE =""/>
+        <ATTRIBUTE NAME ="Performance" VALUE =""/>
+        <ATTRIBUTE NAME ="DTM buffer size" VALUE ="Auto"/>
+        <ATTRIBUTE NAME ="Collect performance data" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Write performance data to repository" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Incremental Aggregation" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Enable high precision" VALUE ="YES"/>
+        <ATTRIBUTE NAME ="Session retry on deadlock" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Pushdown Optimization" VALUE ="None"/>
+        <ATTRIBUTE NAME ="Allow Temporary View for Pushdown" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Allow Temporary Sequence for Pushdown" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Allow Pushdown for User Incompatible Connections" VALUE ="NO"/>
+        <METADATAEXTENSION DATATYPE ="STRING" DESCRIPTION ="" DOMAINNAME ="User Defined Metadata Domain" ISCLIENTEDITABLE ="YES" ISCLIENTVISIBLE ="YES" ISREUSABLE ="NO" ISSHAREREAD ="NO" ISSHAREWRITE ="NO" MAXLENGTH ="256" NAME ="Extension" VALUE ="" VENDORNAME ="INFORMATICA"/>
+    </SESSION>
+    <WORKFLOW DESCRIPTION ="" ISENABLED ="YES" ISRUNNABLESERVICE ="NO" ISSERVICE ="NO" ISVALID ="YES" NAME ="WKF_DIM_CAMPANHA_VENDA_LOAD" REUSABLE_SCHEDULER ="NO" SCHEDULERNAME ="Scheduler" SERVERNAME ="INS_CEF_RJ" SERVER_DOMAINNAME ="DMN_CEF_DES_RJ" SUSPEND_ON_ERROR ="NO" TASKS_MUST_RUN_ON_SERVER ="NO" VERSIONNUMBER ="41">
+        <SCHEDULER DESCRIPTION ="" NAME ="Scheduler" REUSABLE ="NO" VERSIONNUMBER ="3">
+            <SCHEDULEINFO SCHEDULETYPE ="ONDEMAND"/>
+        </SCHEDULER>
+        <TASK DESCRIPTION ="" NAME ="Start" REUSABLE ="NO" TYPE ="Start" VERSIONNUMBER ="3"/>
+        <TASK DESCRIPTION ="" NAME ="CMO_DELETA_ARQUIVOS" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="3">
+            <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+            <VALUEPAIR EXECORDER ="1" NAME ="DELETA_ARQUIVOS_DIM" REVERSEASSIGNMENT ="NO" VALUE ="rm $$dir_loader/GCSTD008*"/>
+        </TASK>
+        <TASK DESCRIPTION ="                     " NAME ="CRT_CONTROLE_CARGA" REUSABLE ="NO" TYPE ="Control" VERSIONNUMBER ="1">
+            <ATTRIBUTE NAME ="Control Option" VALUE ="Fail me"/>
+        </TASK>
+        <SESSION DESCRIPTION ="" ISVALID ="YES" MAPPINGNAME ="MPG_GCS_BALANCE_LINE" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE" REUSABLE ="NO" SORTORDER ="Binary" VERSIONNUMBER ="1">
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="TGT_FF_01_TOT_REGISTROS_VERSIONADOS" STAGE ="1" TRANSFORMATIONNAME ="TGT_FF_01_TOT_REGISTROS_VERSIONADOS" TRANSFORMATIONTYPE ="Target Definition">
+                <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="SQF_SQF_BALANCE_LINE" STAGE ="2" TRANSFORMATIONNAME ="SQF_SQF_BALANCE_LINE" TRANSFORMATIONTYPE ="Source Qualifier">
+                <ATTRIBUTE NAME ="Pre SQL" VALUE ="BEGIN TRAN BL_$$PARAM_01;&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#x9;  &#xD;&#xA;&#xD;&#xA;/* SENDO A PRIMEIRA CARGA DA TABELA */&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;UPDATE GCS.$$PARAM_01&#xD;&#xA;&#x9;&#x9;SET IC_REGISTRO_VIGENTE = 1&#xD;&#xA;&#x9;&#x9;WHERE IC_REGISTRO_VIGENTE = 9&#xD;&#xA;&#x9;&#x9;AND (SELECT COUNT(*) FROM GCS.$$PARAM_01 WHERE IC_REGISTRO_VIGENTE &lt;&gt; 9) = 0;&#xD;&#xA;&#xD;&#xA;/* EXCLUSÃO LÓGICA DAS OCORRENCIAS QUE NÃO EXISTEM MAIS NO SISTEMA DE ORIGEM */&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;UPDATE GCS.$$PARAM_01 &#xD;&#xA;&#x9;SET &#xD;&#xA;&#x9;&#x9;IC_REGISTRO_VIGENTE   = 0, &#xD;&#xA;&#x9;&#x9;DT_FIM_REGISTRO       = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE)), &#xD;&#xA;&#x9;&#x9;TS_ALTERACAO_REGISTRO = GETDATE()&#xD;&#xA;&#x9;WHERE &#xD;&#xA;        IC_REGISTRO_VIGENTE = 1&#xD;&#xA;        AND&#xD;&#xA;&#x9;    HASHBYTES(&apos;MD5&apos;, $$PARAM_03) NOT IN&#xD;&#xA;&#x9;   (&#xD;&#xA;         SELECT HASHBYTES(&apos;MD5&apos;, $$PARAM_03)&#xD;&#xA;&#x9;     FROM &#x9;GCS.$$PARAM_01&#xD;&#xA;         WHERE &#x9;IC_REGISTRO_VIGENTE = 9 &#xD;&#xA;       )&#xD;&#xA;&#x9;   AND&#x9;&#xD;&#xA;&#x9;  (&#xD;&#xA;         SELECT COUNT(*) &#xD;&#xA;         FROM   GCS.$$PARAM_01 &#xD;&#xA;         WHERE  IC_REGISTRO_VIGENTE = 9&#xD;&#xA;      ) &gt; 0;&#xD;&#xA;&#xD;&#xA;/* EXCLUIR REGISTROS QUE NÃO SOFRERAM ALTERAÇÃO */&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;DELETE &#xD;&#xA;&#x9;&#x9;&#x9;FROM GCS.$$PARAM_01&#xD;&#xA;&#x9;&#x9;WHERE &#xD;&#xA;&#x9;&#x9;&#x9;IC_REGISTRO_VIGENTE = 9 AND&#xD;&#xA;&#x9;&#x9;&#x9;CAST(HASHBYTES(&apos;MD5&apos;, $$PARAM_03) AS VARCHAR)+NU_CHAVE_SIGCS&#xD;&#xA;&#x9;&#x9;&#x9;IN &#xD;&#xA;&#x9;&#x9;&#x9;(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;SELECT &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CAST(HASHBYTES(&apos;MD5&apos;, $$PARAM_03) AS VARCHAR)+NU_CHAVE_SIGCS&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;FROM &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;GCS.$$PARAM_01 &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;WHERE &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;IC_REGISTRO_VIGENTE = 1&#xD;&#xA;&#x9;&#x9;&#x9;);&#xD;&#xA;&#xD;&#xA;/* FECGAR A VERSAO DOS REGISTROS ALTERADOS */&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;&#x9;UPDATE GCS.$$PARAM_01 &#xD;&#xA;&#x9;SET &#xD;&#xA;&#x9;&#x9;IC_REGISTRO_VIGENTE = 0, &#xD;&#xA;&#x9;&#x9;DT_FIM_REGISTRO = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE)), &#xD;&#xA;&#x9;&#x9;TS_ALTERACAO_REGISTRO = GETDATE()&#xD;&#xA;    WHERE &#xD;&#xA;&#x9;    IC_REGISTRO_VIGENTE = 1 AND&#xD;&#xA;&#x9;    HASHBYTES(&apos;MD5&apos;, $$PARAM_03) IN&#xD;&#xA;&#x9;(SELECT &#xD;&#xA;&#x9;    HASHBYTES(&apos;MD5&apos;, $$PARAM_03)&#xD;&#xA;&#x9;FROM &#xD;&#xA;&#x9;&#x9;GCS.$$PARAM_01&#xD;&#xA;    WHERE &#xD;&#xA;&#x9;&#x9;IC_REGISTRO_VIGENTE = 9);&#xD;&#xA;&#xD;&#xA;/* INCLUIR OS REGISTROS NOVOS */&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;exec GCSSP001_DESABILITA_INDICE $$PARAM_01, $$PARAM_04;&#xD;&#xA;&#xD;&#xA;DECLARE @NUM BIGINT&#xD;&#xA;SELECT @NUM = COALESCE(MAX($$PARAM_05), 0) FROM GCS.$$PARAM_01 WHERE IC_REGISTRO_VIGENTE &lt;&gt; 9&#xD;&#xA;&#xD;&#xA;INSERT INTO&#xD;&#xA;                          GCS.$$PARAM_01&#xD;&#xA;              (&#xD;&#xA;                          $$PARAM_06a&#xD;&#xA;              )&#xD;&#xA;SELECT&#xD;&#xA;             $$PARAM_06b&#xD;&#xA;FROM&#xD;&#xA;&#x9;&#x9;GCS.$$PARAM_01&#xD;&#xA;WHERE&#xD;&#xA;&#x9;&#x9;IC_REGISTRO_VIGENTE = 9&#xD;&#xA;;&#xD;&#xA;&#xD;&#xA;/* EXCLUIR OS REGISTROS DE TRABALHO REMANESCENTES */&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;DELETE FROM &#xD;&#xA;&#x9;&#x9;&#x9;GCS.$$PARAM_01&#xD;&#xA;WHERE &#xD;&#xA;&#x9;&#x9;&#x9;IC_REGISTRO_VIGENTE = 9;&#xD;&#xA;&#xD;&#xA;exec GCSSP003_HABILITA_INDICE $$PARAM_01, $$PARAM_04;&#xD;&#xA;&#xD;&#xA;COMMIT TRAN BL_$$PARAM_01;"/>
+                <ATTRIBUTE NAME ="Sql Query" VALUE ="USE $$PARAM_07;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;SELECT &#xD;&#xA;                            $$PARAM_05&#xD;&#xA;&#x9;&#x9;FROM&#xD;&#xA;                             GCS.$$PARAM_01&#xD;&#xA;&#x9;&#x9;WHERE&#xD;&#xA;                             IC_REGISTRO_VIGENTE = 0 AND&#xD;&#xA;                             CAST(DT_FIM_REGISTRO AS DATE) = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE)) AND&#xD;&#xA;             HASHBYTES(&apos;MD5&apos;, $$PARAM_03) IN&#xD;&#xA;           (&#xD;&#xA;             SELECT &#xD;&#xA;&#x9;&#x9;&#x9;        HASHBYTES(&apos;MD5&apos;, $$PARAM_03)&#xD;&#xA;             FROM &#xD;&#xA;&#x9;&#x9;&#x9;        GCS.$$PARAM_01&#xD;&#xA;             WHERE &#xD;&#xA;&#x9;&#x9;&#x9;        IC_REGISTRO_VIGENTE = 1&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND CAST(DT_INICIO_REGISTRO AS DATE) = CAST(&apos;$$PARAM_02&apos; AS DATE)&#xD;&#xA;           )"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA" STAGE ="0" TRANSFORMATIONNAME ="SRC_GCSTD018_CONTROLE_CARGA" TRANSFORMATIONTYPE ="Source Definition">
+                <ATTRIBUTE NAME ="Owner Name" VALUE =""/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="4" SINSTANCENAME ="TGT_FF_04_TOT_REGISTROS_EXCLUIDOS_LOGICAMENTE" STAGE ="3" TRANSFORMATIONNAME ="TGT_FF_04_TOT_REGISTROS_EXCLUIDOS_LOGICAMENTE" TRANSFORMATIONTYPE ="Target Definition">
+                <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA1" STAGE ="0" TRANSFORMATIONNAME ="SRC_GCSTD018_CONTROLE_CARGA1" TRANSFORMATIONTYPE ="Source Definition">
+                <ATTRIBUTE NAME ="Owner Name" VALUE ="$$owner_sql"/>
+                <ATTRIBUTE NAME ="Source Table Name" VALUE ="$$TABELA_D"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="2" SINSTANCENAME ="SQF_SQF_INSERTED_RECORDS" STAGE ="4" TRANSFORMATIONNAME ="SQF_SQF_INSERTED_RECORDS" TRANSFORMATIONTYPE ="Source Qualifier">
+                <ATTRIBUTE NAME ="Sql Query" VALUE ="/* CONTABILIZA O NÚMERO DE REGISTROS INSERIDOS A PRIMEIRA VEZ NA TABELA */&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;SELECT &#xD;&#xA;             $$PARAM_05&#xD;&#xA;FROM&#xD;&#xA;             GCS.$$PARAM_01&#xD;&#xA;WHERE &#xD;&#xA;             IC_REGISTRO_VIGENTE = 1 AND&#xD;&#xA;             CAST(DT_INICIO_REGISTRO AS DATE) = CAST(&apos;$$PARAM_02&apos; AS DATE)&#xD;&#xA;AND HASHBYTES(&apos;MD5&apos;, $$PARAM_03) NOT IN (&#xD;&#xA;SELECT HASHBYTES(&apos;MD5&apos;, $$PARAM_03) FROM GCS.$$PARAM_01&#xD;&#xA;WHERE IC_REGISTRO_VIGENTE = 0 AND&#xD;&#xA;DT_FIM_REGISTRO = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE))&#xD;&#xA;)"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="3" SINSTANCENAME ="TGT_FF_03_TOT_REGISTROS_ATUALIZADOS" STAGE ="5" TRANSFORMATIONNAME ="TGT_FF_03_TOT_REGISTROS_ATUALIZADOS" TRANSFORMATIONTYPE ="Target Definition">
+                <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="2" SINSTANCENAME ="TGT_FF_02_TOT_REGISTROS_INSERIDOS" STAGE ="6" TRANSFORMATIONNAME ="TGT_FF_02_TOT_REGISTROS_INSERIDOS" TRANSFORMATIONTYPE ="Target Definition">
+                <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA111" STAGE ="0" TRANSFORMATIONNAME ="SRC_GCSTD018_CONTROLE_CARGA111" TRANSFORMATIONTYPE ="Source Definition">
+                <ATTRIBUTE NAME ="Owner Name" VALUE ="$$owner_sql"/>
+                <ATTRIBUTE NAME ="Source Table Name" VALUE ="$$TABELA_D"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="4" SINSTANCENAME ="SQF_SQF_LOGIC_DELETED_RECORDS" STAGE ="7" TRANSFORMATIONNAME ="SQF_SQF_LOGIC_DELETED_RECORDS" TRANSFORMATIONTYPE ="Source Qualifier">
+                <ATTRIBUTE NAME ="Sql Query" VALUE ="USE $$PARAM_07;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;SELECT &#xD;&#xA;                          $$PARAM_05&#xD;&#xA;&#x9;&#x9;FROM&#xD;&#xA;                          GCS.$$PARAM_01&#xD;&#xA;&#x9;&#x9;WHERE&#xD;&#xA;                          IC_REGISTRO_VIGENTE = 0 AND&#xD;&#xA;             CAST(DT_FIM_REGISTRO AS DATE) = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE)) AND&#xD;&#xA;             HASHBYTES(&apos;MD5&apos;, $$PARAM_03) NOT IN&#xD;&#xA;           (&#xD;&#xA;             SELECT &#xD;&#xA;&#x9;&#x9;&#x9;        HASHBYTES(&apos;MD5&apos;, $$PARAM_03)&#xD;&#xA;             FROM &#xD;&#xA;&#x9;&#x9;&#x9;        GCS.$$PARAM_01&#xD;&#xA;             WHERE &#xD;&#xA;&#x9;&#x9;&#x9;        IC_REGISTRO_VIGENTE = 1&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND CAST(DT_INICIO_REGISTRO AS DATE) = CAST(&apos;$$PARAM_02&apos; AS DATE)&#xD;&#xA;           )"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="3" SINSTANCENAME ="SQF_SQF_UPDATED_RECORDS" STAGE ="8" TRANSFORMATIONNAME ="SQF_SQF_UPDATED_RECORDS" TRANSFORMATIONTYPE ="Source Qualifier">
+                <ATTRIBUTE NAME ="Sql Query" VALUE ="USE $$PARAM_07;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;SELECT &#xD;&#xA;                            $$PARAM_05&#xD;&#xA;&#x9;&#x9;FROM&#xD;&#xA;                             GCS.$$PARAM_01&#xD;&#xA;&#x9;&#x9;WHERE&#xD;&#xA;                             IC_REGISTRO_VIGENTE = 1 AND&#xD;&#xA;                             CAST(DT_INICIO_REGISTRO AS DATE) = CAST(&apos;$$PARAM_02&apos; AS DATE) AND&#xD;&#xA;             HASHBYTES(&apos;MD5&apos;, $$PARAM_03) IN&#xD;&#xA;           (&#xD;&#xA;             SELECT &#xD;&#xA;&#x9;&#x9;&#x9;        HASHBYTES(&apos;MD5&apos;, $$PARAM_03)&#xD;&#xA;             FROM &#xD;&#xA;&#x9;&#x9;&#x9;        GCS.$$PARAM_01&#xD;&#xA;             WHERE &#xD;&#xA;&#x9;&#x9;&#x9;        IC_REGISTRO_VIGENTE = 0&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;AND CAST(DT_FIM_REGISTRO AS DATE) = DATEADD(DAY, -1, CAST(&apos;$$PARAM_02&apos; AS DATE))&#xD;&#xA;           )"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA11" STAGE ="0" TRANSFORMATIONNAME ="SRC_GCSTD018_CONTROLE_CARGA11" TRANSFORMATIONTYPE ="Source Definition">
+                <ATTRIBUTE NAME ="Owner Name" VALUE ="$$owner_sql"/>
+                <ATTRIBUTE NAME ="Source Table Name" VALUE ="$$TABELA_D"/>
+            </SESSTRANSFORMATIONINST>
+            <CONFIGREFERENCE REFOBJECTNAME ="default_session_config" TYPE ="Session config"/>
+            <SESSIONCOMPONENT REFOBJECTNAME ="presession_variable_assignment" REUSABLE ="NO" TYPE ="Pre-session variable assignment">
+                <TASK DESCRIPTION ="" NAME ="presession_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+            </SESSIONCOMPONENT>
+            <SESSIONCOMPONENT REFOBJECTNAME ="postsession_success_variable_assignment" REUSABLE ="NO" TYPE ="Post-session success variable assignment">
+                <TASK DESCRIPTION ="" NAME ="postsession_success_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+            </SESSIONCOMPONENT>
+            <SESSIONCOMPONENT REFOBJECTNAME ="postsession_failure_variable_assignment" REUSABLE ="NO" TYPE ="Post-session failure variable assignment">
+                <TASK DESCRIPTION ="" NAME ="postsession_failure_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+            </SESSIONCOMPONENT>
+            <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_FF_01_TOT_REGISTROS_VERSIONADOS" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+                <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+                <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_ff_dummy.out"/>
+                <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+                <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+                <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Output filename" VALUE ="$$BALANCE_LINE_VERSIONAR_$$TABELA_wkf.out"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$BALANCE_LINE_VERSIONAR_$$TABELA_wkf.bad"/>
+                <ATTRIBUTE NAME ="Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SQF_BALANCE_LINE" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SQF_BALANCE_LINE" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_FF_04_TOT_REGISTROS_EXCLUIDOS_LOGICAMENTE" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+                <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+                <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_ff_logic_delited_records.out"/>
+                <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+                <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+                <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Output filename" VALUE ="$$BALANCE_LINE_EXCLUIR_$$TABELA_wkf.out"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$BALANCE_LINE_EXCLUIR_$$TABELA_wkf.bad"/>
+                <ATTRIBUTE NAME ="Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SQF_INSERTED_RECORDS" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA1" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SQF_INSERTED_RECORDS" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_FF_03_TOT_REGISTROS_ATUALIZADOS" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+                <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+                <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_ff_03_tot_registros_atualizados.out"/>
+                <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+                <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+                <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Output filename" VALUE ="$$BALANCE_LINE_ATUALIZAR_$$TABELA_wkf.out"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$BALANCE_LINE_ATUALIZAR_$$TABELA_wkf.bad"/>
+                <ATTRIBUTE NAME ="Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_FF_02_TOT_REGISTROS_INSERIDOS" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+                <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+                <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_ff_02_tot_registros_inseridos.out"/>
+                <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+                <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+                <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Output filename" VALUE ="$$BALANCE_LINE_INSERIR_$$TABELA_wkf.out"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$BALANCE_LINE_INSERIR_$$TABELA_wkf.bad"/>
+                <ATTRIBUTE NAME ="Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SQF_LOGIC_DELETED_RECORDS" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA111" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SQF_LOGIC_DELETED_RECORDS" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SQF_UPDATED_RECORDS" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SQF_UPDATED_RECORDS" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GCSTD018_CONTROLE_CARGA11" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <ATTRIBUTE NAME ="General Options" VALUE =""/>
+            <ATTRIBUTE NAME ="Write Backward Compatible Session Log File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Session Log File Name" VALUE ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.log"/>
+            <ATTRIBUTE NAME ="Session Log File directory" VALUE ="$PMSessionLogDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Parameter Filename" VALUE =""/>
+            <ATTRIBUTE NAME ="Enable Test Load" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="$Source connection value" VALUE ="$DBConnection_SQL"/>
+            <ATTRIBUTE NAME ="$Target connection value" VALUE =""/>
+            <ATTRIBUTE NAME ="Treat source rows as" VALUE ="Insert"/>
+            <ATTRIBUTE NAME ="Commit Type" VALUE ="Target"/>
+            <ATTRIBUTE NAME ="Commit Interval" VALUE ="10000"/>
+            <ATTRIBUTE NAME ="Commit On End Of File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Rollback Transactions on Errors" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+            <ATTRIBUTE NAME ="Java Classpath" VALUE =""/>
+            <ATTRIBUTE NAME ="Performance" VALUE =""/>
+            <ATTRIBUTE NAME ="DTM buffer size" VALUE ="Auto"/>
+            <ATTRIBUTE NAME ="Collect performance data" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Write performance data to repository" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Incremental Aggregation" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Enable high precision" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Session retry on deadlock" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Pushdown Optimization" VALUE ="None"/>
+            <ATTRIBUTE NAME ="Allow Temporary View for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Temporary Sequence for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Pushdown for User Incompatible Connections" VALUE ="NO"/>
+        </SESSION>
+        <SESSION DESCRIPTION ="Faz a carga dos dados na tabela de destino a partir do arquivo de dados gerado em $$dir_loader com o delimitador &quot;;&quot; (ponto-e-virgula)" ISVALID ="YES" MAPPINGNAME ="MPG_BULK_INSERT" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT" REUSABLE ="NO" SORTORDER ="Binary" VERSIONNUMBER ="1">
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="SQF_SQL_BULK_INSERT" STAGE ="1" TRANSFORMATIONNAME ="SQF_SQL_BULK_INSERT" TRANSFORMATIONTYPE ="Source Qualifier">
+                <ATTRIBUTE NAME ="Pre SQL" VALUE ="USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;DELETE FROM GCS.$$PARAM_01&#xD;&#xA;WHERE IC_REGISTRO_VIGENTE = 9;&#xD;&#xA;&#xD;&#xA;USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;exec GCSSP003_HABILITA_INDICE $$PARAM_01, $$PARAM_04;&#xD;&#xA;&#xD;&#xA;BULK INSERT $$PARAM_01 &#xD;&#xA;FROM &apos;E:&#x5c;upload&#x5c;sigcs&#x5c;$$PARAM_01&apos; &#xD;&#xA;WITH (FIELDTERMINATOR=&apos;;&apos;, ROWTERMINATOR=&apos;0X0a&apos;, MAXERRORS = 0);"/>
+                <ATTRIBUTE NAME ="Sql Query" VALUE ="USE $$PARAM_07;&#xD;&#xA;&#xD;&#xA;SELECT &#xD;&#xA;                &apos;$$PARAM_01&apos;, 1&#xD;&#xA;FROM&#xD;&#xA;                GCS.$$PARAM_01&#xD;&#xA;WHERE &#xD;&#xA;                IC_REGISTRO_VIGENTE = 9"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="TGT_FF_RESULTADO_BULK_INSERT" STAGE ="2" TRANSFORMATIONNAME ="TGT_FF_RESULTADO_BULK_INSERT" TRANSFORMATIONTYPE ="Target Definition">
+                <FLATFILE CODEPAGE ="MS1252" CONSECDELIMITERSASONE ="NO" DELIMITED ="YES" DELIMITERS ="," ESCAPE_CHARACTER ="" KEEPESCAPECHAR ="NO" LINESEQUENTIAL ="NO" MULTIDELIMITERSASAND ="NO" NULLCHARTYPE ="ASCII" NULL_CHARACTER ="*" PADBYTES ="1" QUOTE_CHARACTER ="NONE" REPEATABLE ="NO" ROWDELIMITER ="0" SKIPROWS ="0" STRIPTRAILINGBLANKS ="NO"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_SQL_BULK_INSERT" STAGE ="0" TRANSFORMATIONNAME ="SRC_SQL_BULK_INSERT" TRANSFORMATIONTYPE ="Source Definition">
+                <ATTRIBUTE NAME ="Owner Name" VALUE ="$$owner_sql"/>
+                <ATTRIBUTE NAME ="Source Table Name" VALUE ="$$PARAM_01"/>
+            </SESSTRANSFORMATIONINST>
+            <CONFIGREFERENCE REFOBJECTNAME ="default_session_config" TYPE ="Session config"/>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SQL_BULK_INSERT" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Source"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="File Writer" SINSTANCENAME ="TGT_FF_RESULTADO_BULK_INSERT" SUBTYPE ="File Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="" VARIABLE =""/>
+                <ATTRIBUTE NAME ="Merge Type" VALUE ="No Merge"/>
+                <ATTRIBUTE NAME ="Merge File Directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Merge File Name" VALUE ="tgt_ff_resultado_bulk_insert1.out"/>
+                <ATTRIBUTE NAME ="Append if Exists" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Create Target Directory" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Header Options" VALUE ="No Header"/>
+                <ATTRIBUTE NAME ="Header Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Footer Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output Type" VALUE ="File"/>
+                <ATTRIBUTE NAME ="Merge Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Output file directory" VALUE ="$PMTargetFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Output filename" VALUE ="$$ARQUIVO_BULK_INSERT_$$TABELA_D.out"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$ARQUIVO_BULK_INSERT_$$TABELA_D.bad"/>
+                <ATTRIBUTE NAME ="Command" VALUE =""/>
+                <ATTRIBUTE NAME ="Codepage Parameter" VALUE =""/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SQL_BULK_INSERT" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_SQL_BULK_INSERT" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <ATTRIBUTE NAME ="General Options" VALUE =""/>
+            <ATTRIBUTE NAME ="Write Backward Compatible Session Log File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Session Log File Name" VALUE ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.log"/>
+            <ATTRIBUTE NAME ="Session Log File directory" VALUE ="$PMSessionLogDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Parameter Filename" VALUE =""/>
+            <ATTRIBUTE NAME ="Enable Test Load" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="$Source connection value" VALUE ="$DBConnection_SQL"/>
+            <ATTRIBUTE NAME ="$Target connection value" VALUE =""/>
+            <ATTRIBUTE NAME ="Treat source rows as" VALUE ="Insert"/>
+            <ATTRIBUTE NAME ="Commit Type" VALUE ="Target"/>
+            <ATTRIBUTE NAME ="Commit Interval" VALUE ="10000"/>
+            <ATTRIBUTE NAME ="Commit On End Of File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Rollback Transactions on Errors" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+            <ATTRIBUTE NAME ="Java Classpath" VALUE =""/>
+            <ATTRIBUTE NAME ="Performance" VALUE =""/>
+            <ATTRIBUTE NAME ="DTM buffer size" VALUE ="Auto"/>
+            <ATTRIBUTE NAME ="Collect performance data" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Write performance data to repository" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Incremental Aggregation" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Enable high precision" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Session retry on deadlock" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Pushdown Optimization" VALUE ="None"/>
+            <ATTRIBUTE NAME ="Allow Temporary View for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Temporary Sequence for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Pushdown for User Incompatible Connections" VALUE ="NO"/>
+        </SESSION>
+        <SESSION DESCRIPTION ="Grava um registro na tabela de Controle de Carga, evidenciando que o processo já foi executado para da Diária registrada no Arquivo de Parâmetros. " ISVALID ="YES" MAPPINGNAME ="MPG_CONTROLE_CARGA_FIM" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA" REUSABLE ="NO" SORTORDER ="Binary" VERSIONNUMBER ="1">
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="SQF_SRC_GDCTD500_PERIODO" STAGE ="1" TRANSFORMATIONNAME ="SQF_SRC_GDCTD500_PERIODO" TRANSFORMATIONTYPE ="Source Qualifier"/>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="1" SINSTANCENAME ="EXP_DADOS_CARGA" STAGE ="1" TRANSFORMATIONNAME ="EXP_DADOS_CARGA" TRANSFORMATIONTYPE ="Expression">
+                <PARTITION DESCRIPTION ="" NAME ="Partition #1"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="YES" PARTITIONTYPE ="PASS THROUGH" PIPELINE ="1" SINSTANCENAME ="TGT_GCSTD018_CONTROLE_CARGA" STAGE ="2" TRANSFORMATIONNAME ="TGT_GCSTD018_CONTROLE_CARGA" TRANSFORMATIONTYPE ="Target Definition">
+                <ATTRIBUTE NAME ="Table Name Prefix" VALUE ="$$owner_sql"/>
+                <ATTRIBUTE NAME ="Pre SQL" VALUE =""/>
+                <ATTRIBUTE NAME ="Post SQL" VALUE =""/>
+                <ATTRIBUTE NAME ="Target Table Name" VALUE ="GCSTD018_CONTROLE_CARGA"/>
+            </SESSTRANSFORMATIONINST>
+            <SESSTRANSFORMATIONINST ISREPARTITIONPOINT ="NO" PIPELINE ="0" SINSTANCENAME ="SRC_GDCTD500_PERIODO" STAGE ="0" TRANSFORMATIONNAME ="SRC_GDCTD500_PERIODO" TRANSFORMATIONTYPE ="Source Definition"/>
+            <CONFIGREFERENCE REFOBJECTNAME ="default_session_config" TYPE ="Session config">
+                <ATTRIBUTE NAME ="Session Log File Max Size" VALUE ="20"/>
+                <ATTRIBUTE NAME ="Stop on errors" VALUE ="5000"/>
+            </CONFIGREFERENCE>
+            <SESSIONCOMPONENT REFOBJECTNAME ="presession_variable_assignment" REUSABLE ="NO" TYPE ="Pre-session variable assignment">
+                <TASK DESCRIPTION ="" NAME ="presession_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+                <VALUEPAIR EXECORDER ="1" NAME ="$$DT_CONTROLE" REVERSEASSIGNMENT ="NO" VALUE ="$$dt_carga"/>
+                <VALUEPAIR EXECORDER ="2" NAME ="$$MASC" REVERSEASSIGNMENT ="NO" VALUE ="$$masc"/>
+            </SESSIONCOMPONENT>
+            <SESSIONCOMPONENT REFOBJECTNAME ="postsession_success_variable_assignment" REUSABLE ="NO" TYPE ="Post-session success variable assignment">
+                <TASK DESCRIPTION ="" NAME ="postsession_success_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+            </SESSIONCOMPONENT>
+            <SESSIONCOMPONENT REFOBJECTNAME ="postsession_failure_variable_assignment" REUSABLE ="NO" TYPE ="Post-session failure variable assignment">
+                <TASK DESCRIPTION ="" NAME ="postsession_failure_variable_assignment" REUSABLE ="NO" TYPE ="Command" VERSIONNUMBER ="1">
+                    <ATTRIBUTE NAME ="Fail task if any command fails" VALUE ="NO"/>
+                    <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+                </TASK>
+            </SESSIONCOMPONENT>
+            <SESSIONEXTENSION NAME ="Relational Reader" SINSTANCENAME ="SQF_SRC_GDCTD500_PERIODO" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Qualifier" TYPE ="READER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Target"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION NAME ="Relational Writer" SINSTANCENAME ="TGT_GCSTD018_CONTROLE_CARGA" SUBTYPE ="Relational Writer" TRANSFORMATIONTYPE ="Target Definition" TYPE ="WRITER">
+                <CONNECTIONREFERENCE CNXREFNAME ="DB Connection" CONNECTIONNAME ="" CONNECTIONNUMBER ="1" CONNECTIONSUBTYPE ="" CONNECTIONTYPE ="Relational" VARIABLE ="$Target"/>
+                <ATTRIBUTE NAME ="Target load type" VALUE ="Normal"/>
+                <ATTRIBUTE NAME ="Insert" VALUE ="YES"/>
+                <ATTRIBUTE NAME ="Update as Update" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Update as Insert" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Update else Insert" VALUE ="YES"/>
+                <ATTRIBUTE NAME ="Delete" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Truncate target table option" VALUE ="NO"/>
+                <ATTRIBUTE NAME ="Reject file directory" VALUE ="$PMBadFileDir&#x5c;"/>
+                <ATTRIBUTE NAME ="Reject filename" VALUE ="$$REGISTRA_CNTRLE_CRGA_$$TABELA_D.bad"/>
+            </SESSIONEXTENSION>
+            <SESSIONEXTENSION DSQINSTNAME ="SQF_SRC_GDCTD500_PERIODO" DSQINSTTYPE ="Source Qualifier" NAME ="Relational Reader" SINSTANCENAME ="SRC_GDCTD500_PERIODO" SUBTYPE ="Relational Reader" TRANSFORMATIONTYPE ="Source Definition" TYPE ="READER"/>
+            <ATTRIBUTE NAME ="General Options" VALUE =""/>
+            <ATTRIBUTE NAME ="Write Backward Compatible Session Log File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Session Log File Name" VALUE ="SSN_RDIM_CAMPANHA_VENDA_LOAD_EGISTRA_CONTROLE_CARGA.log"/>
+            <ATTRIBUTE NAME ="Session Log File directory" VALUE ="$PMSessionLogDir&#x5c;"/>
+            <ATTRIBUTE NAME ="Parameter Filename" VALUE =""/>
+            <ATTRIBUTE NAME ="Enable Test Load" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="$Source connection value" VALUE ="$DBConnection_SQL"/>
+            <ATTRIBUTE NAME ="$Target connection value" VALUE ="$DBConnection_CTG"/>
+            <ATTRIBUTE NAME ="Treat source rows as" VALUE ="Update"/>
+            <ATTRIBUTE NAME ="Commit Type" VALUE ="Target"/>
+            <ATTRIBUTE NAME ="Commit Interval" VALUE ="1"/>
+            <ATTRIBUTE NAME ="Commit On End Of File" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Rollback Transactions on Errors" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Recovery Strategy" VALUE ="Fail task and continue workflow"/>
+            <ATTRIBUTE NAME ="Java Classpath" VALUE =""/>
+            <ATTRIBUTE NAME ="Performance" VALUE =""/>
+            <ATTRIBUTE NAME ="DTM buffer size" VALUE ="Auto"/>
+            <ATTRIBUTE NAME ="Collect performance data" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Write performance data to repository" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Incremental Aggregation" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Enable high precision" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Session retry on deadlock" VALUE ="YES"/>
+            <ATTRIBUTE NAME ="Pushdown Optimization" VALUE ="None"/>
+            <ATTRIBUTE NAME ="Allow Temporary View for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Temporary Sequence for Pushdown" VALUE ="NO"/>
+            <ATTRIBUTE NAME ="Allow Pushdown for User Incompatible Connections" VALUE ="NO"/>
+            <METADATAEXTENSION DATATYPE ="STRING" DESCRIPTION ="" DOMAINNAME ="User Defined Metadata Domain" ISCLIENTEDITABLE ="YES" ISCLIENTVISIBLE ="YES" ISREUSABLE ="NO" ISSHAREREAD ="NO" ISSHAREWRITE ="NO" MAXLENGTH ="256" NAME ="Extension" VALUE ="" VENDORNAME ="INFORMATICA"/>
+        </SESSION>
+        <TASKINSTANCE DESCRIPTION ="" ISENABLED ="YES" NAME ="Start" REUSABLE ="NO" TASKNAME ="Start" TASKTYPE ="Start"/>
+        <TASKINSTANCE DESCRIPTION ="" FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="NO" FAIL_PARENT_IF_INSTANCE_FAILS ="NO" ISENABLED ="YES" NAME ="CMO_DELETA_ARQUIVOS" REUSABLE ="NO" TASKNAME ="CMO_DELETA_ARQUIVOS" TASKTYPE ="Command" TREAT_INPUTLINK_AS_AND ="YES"/>
+        <TASKINSTANCE DESCRIPTION ="" FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="YES" FAIL_PARENT_IF_INSTANCE_FAILS ="YES" ISENABLED ="YES" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE" REUSABLE ="NO" TASKNAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE" TASKTYPE ="Session" TREAT_INPUTLINK_AS_AND ="YES"/>
+        <TASKINSTANCE DESCRIPTION ="Verifica na tabela de Controle de Carga se o processo já foi executado para da Diária registrada no Arquivo de Parâmetros." FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="NO" FAIL_PARENT_IF_INSTANCE_FAILS ="YES" ISENABLED ="YES" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA" REUSABLE ="YES" TASKNAME ="SSN_VERIFICA_CONTROLE_CARGA" TASKTYPE ="Session" TREAT_INPUTLINK_AS_AND ="YES">
+            <ATTRIBUTE NAME ="Session Log File Name" VALUE ="SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.log"/>
+        </TASKINSTANCE>
+        <TASKINSTANCE DESCRIPTION ="                     " FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="NO" FAIL_PARENT_IF_INSTANCE_FAILS ="YES" ISENABLED ="YES" NAME ="CRT_CONTROLE_CARGA" REUSABLE ="NO" TASKNAME ="CRT_CONTROLE_CARGA" TASKTYPE ="Control" TREAT_INPUTLINK_AS_AND ="YES"/>
+        <TASKINSTANCE DESCRIPTION ="Faz a carga dos dados na tabela de destino a partir do arquivo de dados gerado em $$dir_loader com o delimitador &quot;;&quot; (ponto-e-virgula)" FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="YES" FAIL_PARENT_IF_INSTANCE_FAILS ="YES" ISENABLED ="YES" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT" REUSABLE ="NO" TASKNAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT" TASKTYPE ="Session" TREAT_INPUTLINK_AS_AND ="YES"/>
+        <TASKINSTANCE DESCRIPTION ="Grava um registro na tabela de Controle de Carga, evidenciando que o processo já foi executado para da Diária registrada no Arquivo de Parâmetros. " FAIL_PARENT_IF_INSTANCE_DID_NOT_RUN ="YES" FAIL_PARENT_IF_INSTANCE_FAILS ="YES" ISENABLED ="YES" NAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA" REUSABLE ="NO" TASKNAME ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA" TASKTYPE ="Session" TREAT_INPUTLINK_AS_AND ="NO"/>
+        <WORKFLOWLINK CONDITION ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.Status=SUCCEEDED" FROMTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA" TOTASK ="CMO_DELETA_ARQUIVOS"/>
+        <WORKFLOWLINK CONDITION ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.Status = SUCCEEDED" FROMTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT" TOTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE"/>
+        <WORKFLOWLINK CONDITION ="" FROMTASK ="Start" TOTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA"/>
+        <WORKFLOWLINK CONDITION ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.TgtSuccessRows = 0" FROMTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA" TOTASK ="CRT_CONTROLE_CARGA"/>
+        <WORKFLOWLINK CONDITION ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.Status = SUCCEEDED AND $SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.SrcSuccessRows=0" FROMTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA" TOTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT"/>
+        <WORKFLOWLINK CONDITION ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.Status = SUCCEEDED" FROMTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE" TOTASK ="SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$Start.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CMO_DELETA_ARQUIVOS.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.SrcSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.SrcFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully loaded" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.TgtSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to load" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.TgtFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Total number of transformation errors" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.TotalTransErrors" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="First error code" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.FirstErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="First error message" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BALANCE_LINE.FirstErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.SrcSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.SrcFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully loaded" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.TgtSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to load" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.TgtFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Total number of transformation errors" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.TotalTransErrors" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="First error code" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.FirstErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="First error message" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_VERIFICA_CONTROLE_CARGA.FirstErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$CRT_CONTROLE_CARGA.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.SrcSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.SrcFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully loaded" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.TgtSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to load" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.TgtFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Total number of transformation errors" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.TotalTransErrors" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="First error code" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.FirstErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="First error message" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_BULK_INSERT.FirstErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task started" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.StartTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="date/time" DEFAULTVALUE ="" DESCRIPTION ="The time this task completed" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.EndTime" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.Status" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Status of the previous task that is not disabled" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.PrevTaskStatus" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Error code for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.ErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="Error message for this task&apos;s execution" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.ErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.SrcSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to read" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.SrcFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows successfully loaded" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.TgtSuccessRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Rows failed to load" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.TgtFailedRows" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="Total number of transformation errors" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.TotalTransErrors" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="First error code" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.FirstErrorCode" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="string" DEFAULTVALUE ="" DESCRIPTION ="First error message" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$SSN_DIM_CAMPANHA_VENDA_LOAD_REGISTRA_CONTROLE_CARGA.FirstErrorMsg" USERDEFINED ="NO"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PK_INDEX_NM_wkf" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$REGISTRA_CNTRLE_CRGA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_06b" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$ARQUIVO_CONTROLE_CARGA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="$$ORIGEM_FF" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$ROLLBACK_FILEDIR_wkf" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="integer" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$IDENTIFICADOR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$ORIGEM_FF" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$dt_carga" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$TABELA_D" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$IDENTIFICADOR_GCSTD018" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$TABELA_SQL" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="&apos;gcs.GCSTD008_CAMPANHA_VENDA&apos;" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$NOME_TABELA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$dir_loader" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$DESTINO_INSERIR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$owner_sql" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$VERIFICA_CNTRLE_CRGA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$owner_gdc" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$TIPO_TABELA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$NM_ARQV_LOAD_wkf" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$TABELA_wkf" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$BALANCE_LINE_VERSIONAR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_01" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$BALANCE_LINE_ATUALIZAR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$BALANCE_LINE_INSERIR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$BALANCE_LINE_EXCLUIR" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_02" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_03" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$masc" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$IDENTIFICADOR_REG_CARGA" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_04" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_05" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_06a" USERDEFINED ="YES"/>
+        <WORKFLOWVARIABLE DATATYPE ="nstring" DEFAULTVALUE ="" DESCRIPTION ="" ISNULL ="NO" ISPERSISTENT ="NO" NAME ="$$PARAM_07" USERDEFINED ="YES"/>
+        <ATTRIBUTE NAME ="Parameter Filename" VALUE ="/opt/infashared/Scripts/pji_gcs/parameter/SIGCS_Carga_Dimensoes.par"/>
+        <ATTRIBUTE NAME ="Write Backward Compatible Workflow Log File" VALUE ="YES"/>
+        <ATTRIBUTE NAME ="Workflow Log File Name" VALUE ="WKF_DIM_CAMPANHA_VENDA_LOAD.log"/>
+        <ATTRIBUTE NAME ="Workflow Log File Directory" VALUE ="$PMWorkflowLogDir&#x5c;"/>
+        <ATTRIBUTE NAME ="Save Workflow log by" VALUE ="By timestamp"/>
+        <ATTRIBUTE NAME ="Save workflow log for these runs" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Service Name" VALUE =""/>
+        <ATTRIBUTE NAME ="Service Timeout" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Is Service Visible" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Is Service Protected" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Fail task after wait time" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Enable HA recovery" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Automatically recover terminated tasks" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Service Level Name" VALUE ="Default"/>
+        <ATTRIBUTE NAME ="Allow concurrent run with unique run instance name" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Allow concurrent run with same run instance name" VALUE ="NO"/>
+        <ATTRIBUTE NAME ="Maximum number of concurrent runs" VALUE ="0"/>
+        <ATTRIBUTE NAME ="Assigned Web Services Hubs" VALUE =""/>
+        <ATTRIBUTE NAME ="Maximum number of concurrent runs per Hub" VALUE ="1000"/>
+        <ATTRIBUTE NAME ="Expected Service Time" VALUE ="1"/>
+    </WORKFLOW>
+</FOLDER>
+</REPOSITORY>
+</POWERMART>
